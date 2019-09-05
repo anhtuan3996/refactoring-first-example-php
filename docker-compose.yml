@@ -1,0 +1,23 @@
+version: '2.1'
+services:
+  app:
+    build:
+      context: ./docker/app
+    image: dutch/appdutch:latest
+    ports:
+      - 9981:80
+      - 443:443
+    volumes:
+      - .:/var/www/html:cached
+    networks:
+      - ductch_new_net
+  blackfire:
+    image: blackfire/blackfire
+    environment:
+      BLACKFIRE_SERVER_ID:
+      BLACKFIRE_SERVER_TOKEN:
+    networks:
+      - ductch_new_net
+networks:
+  ductch_new_net:
+    driver: bridge
